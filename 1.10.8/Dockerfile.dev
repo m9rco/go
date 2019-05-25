@@ -3,8 +3,6 @@ FROM m9rco/go:1.10.8
 ARG USER=root
 ARG PASSWORD=root
 
-ARG COMPOSER_VERSION=1.6.3
-
 RUN apk add -U --no-cache \
         godep \
         openssh \
