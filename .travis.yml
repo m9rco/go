@@ -1,0 +1,28 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.8.1
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - chmod +x /usr/local/bin/docker-compose
+
+  - docker version
+
+  - docker build --no-cache -t m9rco/go:1.10.8 -f 1.10.8/Dockerfile 1.10.8/
+  - docker build --no-cache -t m9rco/go:1.10.8-dev -f 1.10.8/Dockerfile.dev 1.10.8/
+
+  - docker run --name go-1.10.8 -d -v $PWD:/app m9rco/go:1.10.8
+  - docker run --name go-1.10.8-dev -d -v $PWD:/app m9rco/go:1.10.8-dev
+
+  - docker run --name go-1.10.8 -d -v $PWD:/app m9rco/go:1.10.8
+  - docker run --name go-1.10.8-dev -d -v $PWD:/app m9rco/go:1.10.8-dev
+
+script:
+  - docker exec go-1.10.8-dev sh -c "apk -V"
+  - docker exec go-1.10.8-dev sh -c "apk -V"

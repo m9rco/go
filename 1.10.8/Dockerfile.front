@@ -1,0 +1,3 @@
+FROM m9rco/go:1.10.8-dev
+
+RUN apk add --update yarn
