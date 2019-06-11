@@ -31,8 +31,8 @@ ENV GOARCH="amd64" \
     PATH="/usr/bin/go:$PATH" 
 
 ADD rootfs /
-ENTRYPOINT ["/sbin/tini", "--"]
 
+ENTRYPOINT  ["/usr/share/entrypoint.sh"]
 CMD ["/bin/sh"]
 
 WORKDIR /app
