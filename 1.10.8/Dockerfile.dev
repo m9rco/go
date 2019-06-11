@@ -19,32 +19,11 @@ RUN apk add -U --no-cache \
     && echo "${USER}:${PASSWORD}" | chpasswd \
     && ssh-keygen -A 
 
-ENV GOARCH="amd64" \
-    GOBIN="" \
-    GOCACHE="/root/.cache/go-build" \
-    GOEXE="" \
-    GOHOSTARCH="amd64" \
-    GOHOSTOS="linux" \
-    GOOS="linux" \
-    GOPATH="/app" \
-    GORACE="" \
-    GOROOT="/usr/lib/go" \
-    GOTMPDIR="" \
-    GOTOOLDIR="/usr/lib/go/pkg/tool/linux_amd64" \
-    GCCGO="gccgo" \
-    CC="gcc" \
-    CXX="g++" \
-    CGO_ENABLED="1" \
-    CGO_CFLAGS="-g -O2" \
-    CGO_CPPFLAGS="" \
-    CGO_CXXFLAGS="-g -O2" \
-    CGO_FFLAGS="-g -O2" \
-    CGO_LDFLAGS="-g -O2" \
-    PKG_CONFIG="pkg-config" \
-    PATH="/usr/bin/go:$PATH"     
-
 COPY devfs /
 
-CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisor/conf.d/supervisord.conf"]
+SHELL ["/bin/bash","-ic"] 
+RUN source ~/.bashrc
+
+CMD ["/bin/bash", "-c", "env | grep GO >> /etc/environment && source ~/.bashrc && supervisord --nodaemon --configuration /etc/supervisor/conf.d/supervisord.conf"]
 
 EXPOSE 22
