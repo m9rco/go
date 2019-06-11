@@ -20,9 +20,6 @@ before_install:
   - docker run --name go-1.10.8 -d -v $PWD:/app m9rco/go:1.10.8
   - docker run --name go-1.10.8-dev -d -v $PWD:/app m9rco/go:1.10.8-dev
 
-  - docker run --name go-1.10.8 -d -v $PWD:/app m9rco/go:1.10.8
-  - docker run --name go-1.10.8-dev -d -v $PWD:/app m9rco/go:1.10.8-dev
-
 script:
-  - docker exec go-1.10.8-dev sh -c "go env"
+  - docker exec go-1.10.8 sh -c "go env"
   - docker exec go-1.10.8-dev sh -c "go env"

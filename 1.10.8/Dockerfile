@@ -33,6 +33,9 @@ ENV GOARCH="amd64" \
 ADD rootfs /
 
 ENTRYPOINT  ["/usr/share/entrypoint.sh"]
+
+ENTRYPOINT ["/sbin/tini", "--"]
+
 CMD ["/bin/sh"]
 
 WORKDIR /app
