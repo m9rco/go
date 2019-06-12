@@ -11,6 +11,7 @@ RUN apk add -U --no-cache \
         git \
         curl \
         wget \
+        libc-dev \
         zip \
     # clean up       
     && rm -rf /var/cache/apk/* \
@@ -20,9 +21,6 @@ RUN apk add -U --no-cache \
     && ssh-keygen -A 
 
 COPY devfs /
-
-SHELL ["/bin/bash","-ic"] 
-RUN source ~/.bashrc
 
 CMD ["/bin/bash", "-c", "env | grep GO >> /etc/environment && source ~/.bashrc && supervisord --nodaemon --configuration /etc/supervisor/conf.d/supervisord.conf"]
 
