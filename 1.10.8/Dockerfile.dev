@@ -25,3 +25,4 @@ COPY devfs /
 CMD ["/bin/bash", "-c", "env | grep GO >> /etc/environment && source ~/.bashrc && supervisord --nodaemon --configuration /etc/supervisor/conf.d/supervisord.conf"]
 
 EXPOSE 22
+
